@@ -12,6 +12,8 @@ $messages = array(
     'delegationSetLimit' => 'Limit',
     'manageNsRecordsLabel' => 'Manage NS and SOA records',
     'manageNsRecordsDescription' => '<b>Note:</b> Enabling this option without completing the necessary preliminary steps may make your websites unavailable. Applying the changes may take up to 72 hours.<br>This option allows for transferring of NS records from Plesk to the Route 53 name servers. It is a necessary preliminary step for setting up white-label name servers using Route 53 name servers. <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/white-label-name-servers.html" target="_blank">Read the Route 53 guide to learn more</a>.',
+    'autoTaggingLabel' => 'Auto-apply hosting tags',
+    'autoTaggingDescription' => 'Automatically applies <strong>Environment=hosting</strong>, <strong>ManagedBy=plesk</strong>, <strong>Type=customer</strong>, and <strong>Customer=[domain]</strong> tags to new hosted zones for improved organization and billing.',
     'authDataSaved' => 'The authorization data was saved.',
     'getAuth' => 'Find your root account credentials here',
     'getAuthStepTwo' => 'You can also create one yourself. If you do, make sure to grant the "route53:*" and "route53domains:*" permissions to the account (<a href="%%learnMoreUrl%%">learn more</a>).',

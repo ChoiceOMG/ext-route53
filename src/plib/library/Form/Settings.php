@@ -66,6 +66,21 @@ class Modules_Route53_Form_Settings extends pm_Form_Simple
             'label' => pm_Locale::lmsg('enabledLabel'),
             'value' => pm_Settings::get('enabled'),
         ));
+        $this->addElement('checkbox', 'autoTagging', array(
+            'label' => pm_Locale::lmsg('autoTaggingLabel', 'Auto-apply hosting tags'),
+            'value' => pm_Settings::get('autoTagging', true),
+        ));
+        $this->addElement('description', 'autoTaggingDescription', [
+            'description' => pm_Locale::lmsg('autoTaggingDescription', 'Automatically applies Environment=hosting, ManagedBy=plesk, Type=customer tags to new zones'),
+            'escape' => false,
+            'tag' => '',
+        ]);
+        $this->addDisplayGroup(['autoTagging', 'autoTaggingDescription'], 'autoTaggingWithDescription', [
+                'decorators' => [
+                    ['ViewScript', ['viewScript' => 'index/settings-form.phtml']]
+                ]
+            ]
+        );
 
         if (!$this->isConsole) {
             $this->addControlButtons(array(
@@ -118,6 +133,7 @@ class Modules_Route53_Form_Settings extends pm_Form_Simple
 
         pm_Settings::set('enabled', $this->getValue('enabled'));
         pm_Settings::set('manageNsRecords', $this->getValue('manageNsRecords'));
+        pm_Settings::set('autoTagging', $this->getValue('autoTagging'));
 
         \pm_Config::get('rootAccountEnabled', false)
             ? $keyType = $this->getValue('keyType')

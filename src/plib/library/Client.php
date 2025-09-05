@@ -182,6 +182,12 @@ class Modules_Route53_Client
         if (is_array($this->_zones)) {
             $this->_zones[$model['HostedZone']['Name']] = $model['HostedZone']['Id'];
         }
+        
+        // Apply default tags for hosting zones if auto-tagging is enabled
+        if (pm_Settings::get('autoTagging', true)) {
+            $this->applyDefaultTags($model['HostedZone']['Id'], $args['Name'] ?? '');
+        }
+        
         return $model;
     }
 
@@ -299,5 +305,39 @@ class Modules_Route53_Client
             return str_replace('/delegationset/', '', $delegationSetId);
         }
         return null;
+    }
+    
+    /**
+     * Apply default tags for hosting zones created by Plesk
+     *
+     * @param string $hostedZoneId
+     * @param string $zoneName
+     */
+    private function applyDefaultTags($hostedZoneId, $zoneName = '')
+    {
+        try {
+            $tags = [
+                ['Key' => 'Environment', 'Value' => 'hosting'],
+                ['Key' => 'ManagedBy', 'Value' => 'plesk'],
+                ['Key' => 'Type', 'Value' => 'customer']
+            ];
+            
+            // Extract domain name for customer tag (remove trailing dot)
+            if ($zoneName) {
+                $domainName = rtrim($zoneName, '.');
+                $tags[] = ['Key' => 'Customer', 'Value' => $domainName];
+            }
+            
+            $this->changeTagsForResource([
+                'ResourceType' => 'hostedzone',
+                'ResourceId' => str_replace('/hostedzone/', '', $hostedZoneId),
+                'AddTags' => $tags
+            ]);
+            
+            pm_Log::info("Applied default tags to hosted zone: {$hostedZoneId}");
+            
+        } catch (Exception $e) {
+            pm_Log::warn("Failed to apply tags to hosted zone {$hostedZoneId}: " . $e->getMessage());
+        }
     }
 }

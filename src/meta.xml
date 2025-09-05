@@ -2,14 +2,14 @@
 <!-- Copyright 1999-2023. Plesk International GmbH. -->
 <module>
   <id>route53</id>
-  <name>Amazon Route 53</name>
-  <description>This extension provides the functionality needed for integration with Amazon Route 53. It is a highly available and scalable Domain Name System (DNS) web service.</description>
+  <name>Amazon Route 53 - Choice.hosting White-Label DNS Edition</name>
+  <description>Specialized version of the Plesk Route 53 extension optimized for white-label DNS hosting businesses. Features automatic zone tagging, restricted IAM permissions, and customer segmentation capabilities.</description>
   <category>dns</category>
   <category>clouds</category>
-  <version>2.9.9</version>
+  <version>4.0.0</version>
   <release>{{RELEASE}}</release>
-  <vendor>Plesk</vendor>
-  <url>https://github.com/plesk/ext-route53</url>
+  <vendor>Choice.hosting</vendor>
+  <url>https://github.com/ChoiceOMG/ext-route53</url>
   <plesk_min_version>18.0.40</plesk_min_version>
   <!--Localized descriptions below-->
   <description xml:lang="ar">يوفر هذا الملحق الوظائف اللازمة للتكامل مع Amazon Route 53. هي خدمة ويب متاحة للغاية وقابلة للتحجيم بنظام أسماء النطاقات (DNS).</description>
